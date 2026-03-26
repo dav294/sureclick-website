@@ -49,23 +49,22 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ─── Intro Animation (runs after loader hides) ────────────────
+  // Nav is always visible via CSS — only hero content is animated in
   function introAnimation() {
     const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
 
-    tl.from('.site-nav', { y: -50, opacity: 0, duration: 0.8 })
-      .to('.hero-label', { y: 0, opacity: 1, duration: 0.6 }, '-=0.4')
+    tl.to('.hero-label', { y: 0, opacity: 1, duration: 0.6 })
       .from('.word', { yPercent: 110, duration: 1.0, stagger: 0.1 }, '-=0.3')
       .to('.hero-sub', { y: 0, opacity: 1, duration: 0.7 }, '-=0.5')
       .to('.hero-ctas', { y: 0, opacity: 1, duration: 0.7 }, '-=0.55')
       .to('.scroll-indicator', { opacity: 1, duration: 0.5 }, '-=0.3');
   }
 
-  // Set initial state for elements animated in intro
+  // Set initial state for hero content only
   gsap.set('.hero-label', { y: 20, opacity: 0 });
   gsap.set('.hero-sub', { y: 24, opacity: 0 });
   gsap.set('.hero-ctas', { y: 20, opacity: 0 });
   gsap.set('.scroll-indicator', { opacity: 0 });
-  gsap.set('.site-nav', { opacity: 0 });
 
   // ─── Nav Hide / Show on Scroll ───────────────────────────────
   const nav = document.getElementById('site-nav');
