@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SureClick | Digital Marketing & Web Design Ireland</title>
+  <meta name="description" content="Ireland's results-driven digital marketing and web design agency. SEO, PPC, Social Media, and high-converting websites.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+
+  <!-- Three.js importmap -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160/examples/jsm/"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Loader -->
+  <div id="loader">
+    <div class="loader-inner">
+      <img src="logo/SureClick%20Symbol%20Transparent%20%283%29.png" alt="SureClick" class="loader-symbol">
+      <div class="loader-bar-track">
+        <div class="loader-bar" id="loader-bar"></div>
+      </div>
+      <span class="loader-percent" id="loader-percent">0%</span>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="site-nav" id="site-nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <img src="logo/SureClick%20Logo.png" alt="SureClick">
+      </a>
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#contact" class="nav-cta">Get Started <span aria-hidden="true">→</span></a>
+    </div>
+  </nav>
+
+  <!-- Fixed Three.js Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Main -->
+  <main>
+
+    <!-- Hero -->
+    <section class="hero" id="hero">
+      <div class="hero-grid-overlay"></div>
+      <div class="hero-content">
+        <span class="hero-label">Digital Marketing & Web Design — Ireland</span>
+        <h1 class="hero-heading">
+          <span class="word-wrap"><span class="word">Clicks</span></span>
+          <span class="word-wrap"><span class="word">That</span></span>
+          <br>
+          <span class="word-wrap"><span class="word accent">Convert.</span></span>
+        </h1>
+        <p class="hero-sub">We turn your digital presence into a revenue-generating machine. SEO, PPC, Web Design and Social Media — all under one roof.</p>
+        <div class="hero-ctas">
+          <a href="#contact" class="btn btn-primary">Speak to an Expert <span aria-hidden="true">→</span></a>
+          <a href="#work" class="btn btn-ghost">View Our Work <span aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+      <div class="scroll-indicator" aria-hidden="true">
+        <span>Scroll</span>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- Ticker -->
+    <div class="ticker-wrap" aria-hidden="true">
+      <div class="ticker-track" id="ticker">
+        <span>Web Design</span><span class="sep">×</span>
+        <span>SEO</span><span class="sep">×</span>
+        <span>Pay-Per-Click</span><span class="sep">×</span>
+        <span>Social Media</span><span class="sep">×</span>
+        <span>Email Marketing</span><span class="sep">×</span>
+        <span>Conversion Optimisation</span><span class="sep">×</span>
+        <span>Web Design</span><span class="sep">×</span>
+        <span>SEO</span><span class="sep">×</span>
+        <span>Pay-Per-Click</span><span class="sep">×</span>
+        <span>Social Media</span><span class="sep">×</span>
+        <span>Email Marketing</span><span class="sep">×</span>
+        <span>Conversion Optimisation</span><span class="sep">×</span>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <section class="stats-section" id="stats">
+      <div class="stats-inner">
+        <div class="stat-item">
+          <div class="stat-value">
+            <span class="stat-num" data-target="1.3" data-suffix="M+">0</span>
+          </div>
+          <span class="stat-label">Sessions Driven</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-value">
+            <span class="stat-num" data-target="40" data-suffix="x">0</span>
+          </div>
+          <span class="stat-label">Best ROAS Achieved</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-value">
+            <span class="stat-prefix">€</span><span class="stat-num" data-target="1.2" data-suffix="M+">0</span>
+          </div>
+          <span class="stat-label">Sales Generated in 2024</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-value">
+            <span class="stat-num" data-target="5" data-suffix="+">0</span>
+          </div>
+          <span class="stat-label">Active Clients</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section class="services-section" id="services">
+      <div class="services-header">
+        <span class="section-label">01 / What We Do</span>
+        <h2 class="section-heading">Everything you need<br>to dominate online</h2>
+      </div>
+
+      <div class="service-row" data-dir="left">
+        <div class="service-num">01</div>
+        <div class="service-content">
+          <h3 class="service-title">Web Design</h3>
+          <p class="service-desc">Modern, mobile-first websites engineered for conversions. From concept to launch, we build digital experiences that turn visitors into customers — and customers into advocates.</p>
+          <a href="#contact" class="service-link">Start a Project <span>→</span></a>
+        </div>
+        <div class="service-orb" style="--orb: #0e62ad;"></div>
+      </div>
+
+      <div class="service-row reverse" data-dir="right">
+        <div class="service-num">02</div>
+        <div class="service-content">
+          <h3 class="service-title">SEO</h3>
+          <p class="service-desc">Rank higher. Get found. Our data-driven SEO strategies increase organic visibility and drive consistent, qualified traffic. We focus on results, not vanity metrics.</p>
+          <a href="#contact" class="service-link">Improve Rankings <span>→</span></a>
+        </div>
+        <div class="service-orb" style="--orb: #5cc6ff;"></div>
+      </div>
+
+      <div class="service-row" data-dir="left">
+        <div class="service-num">03</div>
+        <div class="service-content">
+          <h3 class="service-title">Pay-Per-Click</h3>
+          <p class="service-desc">40x ROAS achieved for our clients. Precision-targeted ad campaigns across Google and beyond, managed by certified experts who obsess over every euro of your ad spend.</p>
+          <a href="#contact" class="service-link">Launch Campaigns <span>→</span></a>
+        </div>
+        <div class="service-orb" style="--orb: #0e62ad;"></div>
+      </div>
+
+      <div class="service-row reverse" data-dir="right">
+        <div class="service-num">04</div>
+        <div class="service-content">
+          <h3 class="service-title">Social Media Marketing</h3>
+          <p class="service-desc">Build brand awareness and community across the platforms your customers use every day. Strategy, content creation, management, and paid social — all handled for you.</p>
+          <a href="#contact" class="service-link">Grow Your Audience <span>→</span></a>
+        </div>
+        <div class="service-orb" style="--orb: #5cc6ff;"></div>
+      </div>
+
+      <div class="service-row" data-dir="left">
+        <div class="service-num">05</div>
+        <div class="service-content">
+          <h3 class="service-title">Email Marketing</h3>
+          <p class="service-desc">Nurture leads, retain customers, drive repeat revenue. We craft email sequences and campaigns that your audience actually wants to open — and act on.</p>
+          <a href="#contact" class="service-link">Start Email Marketing <span>→</span></a>
+        </div>
+        <div class="service-orb" style="--orb: #0e62ad;"></div>
+      </div>
+    </section>
+
+    <!-- Clients -->
+    <section class="clients-section" id="work">
+      <div class="clients-header">
+        <span class="section-label">02 / Our Clients</span>
+        <h2 class="section-heading">Trusted by businesses<br>across Ireland</h2>
+      </div>
+      <div class="clients-grid" id="clients-grid">
+        <div class="client-logo">
+          <img src="clients/walshy%20transparent.png" alt="Walshy">
+        </div>
+        <div class="client-logo">
+          <img src="clients/WOOD-FLOOR-STORE-LOGO-ff4137e591d1.png" alt="Wood Floor Store">
+        </div>
+        <div class="client-logo">
+          <img src="clients/Konig_Logo.png" alt="Konig">
+        </div>
+        <div class="client-logo">
+          <img src="clients/Fika%20Logo%20Transparent.png" alt="Fika">
+        </div>
+        <div class="client-logo">
+          <img src="clients/SleepoverClubLogo.png" alt="Sleepover Club">
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section" id="contact">
+      <div class="cta-glow"></div>
+      <div class="cta-inner">
+        <span class="section-label">03 / Let's Talk</span>
+        <h2 class="cta-heading">Ready to turn clicks<br>into revenue?</h2>
+        <p class="cta-sub">Free consultation. No obligations. Just a straight conversation about your goals.</p>
+        <a href="mailto:hello@sureclick.ie" class="btn btn-primary btn-large">Get a Free Audit <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer" id="about">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="logo/SureClick%20Logo.png" alt="SureClick" class="footer-logo">
+          <p class="footer-tagline">Clicks That Convert.</p>
+        </div>
+        <nav class="footer-nav">
+          <div class="footer-col">
+            <span class="footer-col-label">Services</span>
+            <a href="#services">Web Design</a>
+            <a href="#services">SEO</a>
+            <a href="#services">Pay-Per-Click</a>
+            <a href="#services">Social Media</a>
+            <a href="#services">Email Marketing</a>
+          </div>
+          <div class="footer-col">
+            <span class="footer-col-label">Company</span>
+            <a href="#about">About</a>
+            <a href="#work">Our Work</a>
+            <a href="#contact">Contact</a>
+            <a href="mailto:hello@sureclick.ie">hello@sureclick.ie</a>
+          </div>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 SureClick Digital. All rights reserved.</p>
+        <p>Dublin, Ireland</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CDN Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+
+  <!-- Three.js scene (ES module) -->
+  <script type="module" src="js/scene.js"></script>
+
+  <!-- App logic -->
+  <script src="js/app.js"></script>
+
+</body>
+</html>
+
+<!--
+=============================================================
+  REFERENCES — SureClick Website Rebuild
+  Built: 2024
+=============================================================
+
+  INSPIRATION
+  -----------
+  1. https://www.refokus.com/
+     → Dark canvas hero, GSAP scroll reveals, filterable portfolio grid,
+       purple accent on black, word-split text animations
+
+  2. https://activetheory.net/
+     → Full WebGL/canvas immersive hero, premium dark aesthetic,
+       custom geometric font, SPA-style transitions
+
+  3. https://www.flowninja.com/
+     → Character-level GSAP text reveals, client logo hover grid,
+       lazy-loaded video sections, Webflow + custom JS patterns
+
+  TECHNIQUES USED
+  ---------------
+  - Three.js r160: particle sphere + icosahedron wireframe hero scene
+  - GSAP ScrollTrigger: service row reveals, stat counters, section entrances
+  - Lenis: smooth scroll connected to GSAP ticker
+  - Word-split clip-path hero reveal with stagger
+  - Client logo hover: grid dims to 30%, hovered logo at full opacity
+  - Ticker marquee: GSAP infinite xPercent loop
+  - CSS grid overlay on hero (subtle blue dot grid)
+  - Stats: animated counter via GSAP object interpolation
+
+  LIBRARIES
+  ---------
+  - Three.js r160 (importmap, ES module)
+  - GSAP 3 + ScrollTrigger (CDN)
+  - Lenis 1 (smooth scroll, CDN)
+  - Google Fonts: Syne 700/800 (display) + DM Sans 400/500/600 (body)
+
+=============================================================
+-->
