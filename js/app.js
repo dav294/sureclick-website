@@ -178,33 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   );
 
-  // ─── Client Logos Entrance + Hover ───────────────────────────
-  const clientGrid  = document.getElementById('clients-grid');
-  const clientLogos = document.querySelectorAll('.client-logo');
-
-  gsap.fromTo(clientLogos,
-    { y: 30, opacity: 0 },
-    {
-      y: 0,
-      opacity: 1,
-      duration: 0.6,
-      stagger: 0.08,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: clientGrid,
-        start: 'top 82%',
-        toggleActions: 'play none none none'
-      }
-    }
-  );
-
-  // Hover: dim all, brighten hovered (Flow Ninja style)
-  clientGrid.addEventListener('mouseenter', () => {
-    clientGrid.classList.add('hovered');
-  });
-  clientGrid.addEventListener('mouseleave', () => {
-    clientGrid.classList.remove('hovered');
-  });
+  // Client logos use CSS infinite scroll animation — no JS needed
 
   // ─── CTA Section ─────────────────────────────────────────────
   const ctaTl = gsap.timeline({
