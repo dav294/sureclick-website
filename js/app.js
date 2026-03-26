@@ -72,13 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let lastScroll = 0;
 
   lenis.on('scroll', ({ scroll }) => {
-    // Add scrolled class for glassmorphism effect
-    if (scroll > 60) {
-      nav.classList.add('scrolled');
-    } else {
-      nav.classList.remove('scrolled');
-    }
-
     // Hide on scroll down, show on scroll up
     if (scroll > lastScroll && scroll > 120) {
       nav.classList.add('nav-hidden');
