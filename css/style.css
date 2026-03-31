@@ -524,11 +524,11 @@ body::before {
 }
 
 .stats-inner {
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 80px 40px;
   display: grid;
-  grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
   align-items: center;
   gap: 0;
 }
@@ -538,45 +538,48 @@ body::before {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 20px 24px;
+  padding: 20px 40px;
 }
 
 .stat-value {
   display: flex;
   align-items: baseline;
-  gap: 2px;
+  gap: 0;
 }
 
+/* € prefix matches stat-num exactly in size, weight, and color */
 .stat-prefix {
   font-family: var(--font-disp);
-  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-size: clamp(2.8rem, 4.5vw, 4.2rem);
   font-weight: 800;
-  color: var(--accent);
+  color: var(--white);
   line-height: 1;
 }
 
 .stat-num {
   display: inline-block;
   font-family: var(--font-disp);
-  font-size: clamp(2.8rem, 5vw, 4.5rem);
+  font-size: clamp(2.8rem, 4.5vw, 4.2rem);
   font-weight: 800;
   color: var(--white);
   line-height: 1;
 }
 
 .stat-label {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 500;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--muted);
-  margin-top: 8px;
+  margin-top: 10px;
+  white-space: nowrap;
 }
 
 .stat-divider {
   width: 1px;
-  height: 60px;
+  height: 56px;
   background: var(--border);
+  flex-shrink: 0;
 }
 
 /* =============================================================
@@ -725,7 +728,7 @@ body::before {
   display: flex;
   align-items: center;
   width: max-content;
-  gap: 80px;
+  /* No gap — spacing handled by padding on each logo so -50% is always exact */
   animation: clientsScroll 28s linear infinite;
 }
 
@@ -743,6 +746,8 @@ body::before {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  /* Symmetric padding means every inter-logo gap = 56+56 = 112px, including the seam */
+  padding: 0 56px;
 }
 
 .client-logo img {
@@ -792,9 +797,9 @@ body::before {
 
 .cta-heading {
   font-family: var(--font-disp);
-  font-size: clamp(2.8rem, 5.5vw, 5rem);
+  font-size: clamp(2.4rem, 4vw, 3.8rem);
   font-weight: 800;
-  line-height: 1.0;
+  line-height: 1.05;
   letter-spacing: -0.03em;
   margin-bottom: 24px;
   color: var(--white);
@@ -895,11 +900,16 @@ body::before {
   .nav-links { display: none; }
 
   .stats-inner {
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
+    grid-template-columns: 1fr;
+    gap: 0;
+    max-width: 360px;
   }
 
-  .stat-divider { display: none; }
+  .stat-divider {
+    width: 40px;
+    height: 1px;
+    margin: 0 auto;
+  }
 
   .service-row,
   .service-row.reverse {
