@@ -307,7 +307,7 @@ body::before {
   z-index: 1;
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   background: transparent;
   overflow: hidden;
 }
@@ -338,7 +338,7 @@ body::before {
 .hero-content {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 120px 16px;
+  padding: 38vh 16px 0;
   width: 100%;
   position: relative;
   z-index: 2;
@@ -410,7 +410,7 @@ body::before {
 
 .hero-ctas {
   position: absolute;
-  bottom: 130px;
+  bottom: 90px;
   left: 0;
   right: 0;
   display: flex;
@@ -425,7 +425,7 @@ body::before {
 /* Scroll indicator */
 .scroll-indicator {
   position: absolute;
-  bottom: 48px;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -963,7 +963,7 @@ body::before {
 }
 
 @media (max-width: 600px) {
-  .hero-content { padding: 0 24px; padding-top: 110px; }
+  .hero-content { padding: 28vh 24px 0; }
   .hero-heading { font-size: clamp(3rem, 13vw, 5rem); }
 
   .services-header,

@@ -56,7 +56,21 @@ document.addEventListener('DOMContentLoaded', () => {
     tl.to('#hero-typewriter', { opacity: 1, duration: 0.5 })
       .to('.hero-ctas', { y: 0, opacity: 1, duration: 0.7 }, '+=0.3')
       .to('.scroll-indicator', { opacity: 1, duration: 0.5 }, '-=0.3')
-      .call(startTypewriter);
+      .call(() => {
+        startTypewriter();
+        // Register AFTER CTAs are opacity:1 so GSAP records the correct from-state
+        gsap.to('.hero-ctas', {
+          opacity: 0,
+          y: -20,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '.hero',
+            start: 'center top',
+            end: 'bottom top',
+            scrub: true
+          }
+        });
+      });
   }
 
   // Set initial state for hero content
@@ -142,19 +156,6 @@ document.addEventListener('DOMContentLoaded', () => {
     duration: 28,
     ease: 'none',
     repeat: -1
-  });
-
-  // ─── Hero CTAs — fade out while scrolling past hero ──────────
-  gsap.to('.hero-ctas', {
-    opacity: 0,
-    y: -20,
-    ease: 'none',
-    scrollTrigger: {
-      trigger: '.hero',
-      start: 'center top',
-      end: 'bottom top',
-      scrub: true
-    }
   });
 
   // ─── Stats Counters ───────────────────────────────────────────
