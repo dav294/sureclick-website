@@ -54,17 +54,75 @@ document.addEventListener('DOMContentLoaded', () => {
     const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
 
     tl.to('.hero-label', { y: 0, opacity: 1, duration: 0.6 })
-      .from('.word', { yPercent: 110, duration: 1.0, stagger: 0.1 }, '-=0.3')
-      .to('.hero-sub', { y: 0, opacity: 1, duration: 0.7 }, '-=0.5')
-      .to('.hero-ctas', { y: 0, opacity: 1, duration: 0.7 }, '-=0.55')
-      .to('.scroll-indicator', { opacity: 1, duration: 0.5 }, '-=0.3');
+      .to('#hero-typewriter', { opacity: 1, duration: 0.5 }, '-=0.2')
+      .to('.hero-ctas', { y: 0, opacity: 1, duration: 0.7 }, '+=0.2')
+      .to('.scroll-indicator', { opacity: 1, duration: 0.5 }, '-=0.3')
+      .call(startTypewriter);
   }
 
-  // Set initial state for hero content only
+  // Set initial state for hero content
   gsap.set('.hero-label', { y: 20, opacity: 0 });
-  gsap.set('.hero-sub', { y: 24, opacity: 0 });
   gsap.set('.hero-ctas', { y: 20, opacity: 0 });
   gsap.set('.scroll-indicator', { opacity: 0 });
+
+  // ─── Typewriter Animation ─────────────────────────────────────
+  const PHRASES = [
+    {
+      prefix: 'Grow your business with ',
+      services: [
+        'expert web design & development.',
+        'high-converting PPC campaigns.',
+        'results-driven social media.'
+      ]
+    },
+    {
+      prefix: 'Drive more revenue through ',
+      services: [
+        'conversion-focused SEO.',
+        'performance-driven web design.',
+        'targeted social media advertising.'
+      ]
+    },
+    {
+      prefix: 'Reach more customers with ',
+      services: [
+        'strategic digital marketing.',
+        'standout web design & development.',
+        'precision PPC advertising.'
+      ]
+    }
+  ];
+
+  const TWP = { TYPE: 52, DELETE: 28, PAUSE_AFTER: 1900, PAUSE_BETWEEN: 200, PAUSE_PREFIX: 480 };
+
+  function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+  async function typeInto(el, text) {
+    for (const ch of text) { el.textContent += ch; await wait(TWP.TYPE); }
+  }
+
+  async function deleteFrom(el) {
+    while (el.textContent.length) { el.textContent = el.textContent.slice(0, -1); await wait(TWP.DELETE); }
+  }
+
+  async function startTypewriter() {
+    const prefixEl  = document.getElementById('tw-prefix');
+    const serviceEl = document.getElementById('tw-service');
+    while (true) {
+      for (const phrase of PHRASES) {
+        await typeInto(prefixEl, phrase.prefix);
+        for (const svc of phrase.services) {
+          await typeInto(serviceEl, svc);
+          await wait(TWP.PAUSE_AFTER);
+          await deleteFrom(serviceEl);
+          await wait(TWP.PAUSE_BETWEEN);
+        }
+        await wait(TWP.PAUSE_PREFIX);
+        await deleteFrom(prefixEl);
+        await wait(TWP.PAUSE_PREFIX);
+      }
+    }
+  }
 
   // ─── Nav Hide / Show on Scroll ───────────────────────────────
   const nav = document.getElementById('site-nav');
