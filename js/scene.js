@@ -173,22 +173,10 @@ const ring2Mat = new THREE.MeshBasicMaterial({ color: 0x0e62ad, transparent: tru
 ring2.material = ring2Mat;
 scene.add(ring2);
 
-// ─── Scroll State + Velocity ──────────────────────────────────
+// ─── Scroll State ────────────────────────────────────────────
 let scrollProgress = 0;
-let scrollVelocity = 0;
-let lastScrollY    = window.scrollY;
-let lastScrollTime = Date.now();
 
 window.addEventListener('scroll', () => {
-  const now = Date.now();
-  const dy  = Math.abs(window.scrollY - lastScrollY);
-  const dt  = Math.max(now - lastScrollTime, 1);
-
-  scrollVelocity = Math.min(dy / dt * 80, 6.0); // cap velocity boost
-
-  lastScrollY    = window.scrollY;
-  lastScrollTime = now;
-
   const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
   if (maxScroll > 0) scrollProgress = Math.min(window.scrollY / maxScroll, 1);
 }, { passive: true });
@@ -207,13 +195,9 @@ function animate() {
   const t  = clock.getElapsedTime();
   const sp = scrollProgress;
 
-  // Decay scroll velocity smoothly each frame
-  scrollVelocity *= 0.90;
-  const speedMult = 1.0 + scrollVelocity;
-
-  // Particle rotation — sped up by scroll velocity
-  particles.rotation.y = t * 0.045 * speedMult + sp * Math.PI * 1.8;
-  particles.rotation.x = t * 0.022 * speedMult + sp * Math.PI * 0.5;
+  // Particle rotation — original scroll animation
+  particles.rotation.y = t * 0.045 + sp * Math.PI * 1.5;
+  particles.rotation.x = t * 0.022 + sp * Math.PI * 0.4;
 
   // Node network rotation
   networkGroup.rotation.y = t * 0.12;
@@ -231,9 +215,9 @@ function animate() {
   ring2.rotation.y = t * 0.05;
 
   // Scroll: camera pulls back, particles maintain visibility
-  camera.position.z = 6 + sp * 5;
+  camera.position.z = 6 + sp * 4;
   camera.position.y = sp * 1.2;
-  pMat.opacity      = Math.max(0.35, 0.88 - sp * 0.18); // stays more visible through page
+  pMat.opacity      = Math.max(0.25, 0.85 - sp * 0.55);
 
   // Network fades slightly as user scrolls away from hero
   const netFade = Math.max(0, 1 - sp * 3.5);
