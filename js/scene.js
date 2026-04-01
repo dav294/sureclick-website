@@ -109,6 +109,8 @@ const NODE_DEFS = [
 
 const nodeMeshes = [];
 const haloMeshes = [];
+// Store {material, baseOpacity} for smooth fade
+const networkMaterials = [];
 
 NODE_DEFS.forEach(([x, y, z, r, col, glowOp]) => {
   // Core node sphere
@@ -118,19 +120,21 @@ NODE_DEFS.forEach(([x, y, z, r, col, glowOp]) => {
   mesh.position.set(x, y, z);
   networkGroup.add(mesh);
   nodeMeshes.push(mesh);
+  networkMaterials.push({ mat, base: 0.9 });
 
   // Outer glow halo
   const haloGeo = new THREE.SphereGeometry(r * 2.4, 14, 14);
   const haloMat = new THREE.MeshBasicMaterial({
-    color:      col,
+    color:       col,
     transparent: true,
-    opacity:    glowOp,
-    depthWrite: false
+    opacity:     glowOp,
+    depthWrite:  false
   });
   const halo = new THREE.Mesh(haloGeo, haloMat);
   halo.position.set(x, y, z);
   networkGroup.add(halo);
   haloMeshes.push(halo);
+  networkMaterials.push({ mat: haloMat, base: glowOp });
 });
 
 // Connection lines between nodes
@@ -207,9 +211,6 @@ function animate() {
   const pulse = 1 + Math.sin(t * 1.2) * 0.18;
   if (haloMeshes[0]) haloMeshes[0].scale.setScalar(pulse);
 
-  // Connection lines pulse opacity
-  lineMat.opacity = 0.22 + Math.sin(t * 0.9) * 0.10;
-
   // Orbit rings
   ring.rotation.z  = t * 0.07;
   ring2.rotation.y = t * 0.05;
@@ -219,12 +220,14 @@ function animate() {
   camera.position.y = sp * 1.2;
   pMat.opacity      = Math.max(0.25, 0.85 - sp * 0.55);
 
-  // Network fades slightly as user scrolls away from hero
-  const netFade = Math.max(0, 1 - sp * 3.5);
-  networkGroup.children.forEach(child => {
-    if (child.material) child.material.opacity *= netFade > 0 ? 1 : 0;
+  // Network: smooth gradual fade as user scrolls down
+  const netFade = Math.max(0, 1 - sp * 2.8);
+  networkMaterials.forEach(({ mat, base }) => {
+    mat.opacity = base * netFade;
   });
-  networkGroup.visible = netFade > 0.01;
+  // Also fade lines (base opacity fluctuates, so apply fade on top)
+  lineMat.opacity = (0.22 + Math.sin(t * 0.9) * 0.10) * netFade;
+  networkGroup.visible = netFade > 0.001;
 
   renderer.render(scene, camera);
   requestAnimationFrame(animate);

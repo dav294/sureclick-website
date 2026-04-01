@@ -191,14 +191,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ─── Footer Entrance ─────────────────────────────────────────
   gsap.fromTo('.site-footer',
-    { opacity: 0 },
+    { yPercent: 8, opacity: 0 },
     {
+      yPercent: 0,
       opacity: 1,
-      duration: 0.8,
-      ease: 'power2.out',
+      duration: 1.1,
+      ease: 'power3.out',
       scrollTrigger: {
         trigger: '.site-footer',
-        start: 'top 95%',
+        start: 'top 98%',
         toggleActions: 'play none none none'
       }
     }
