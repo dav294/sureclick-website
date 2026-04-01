@@ -53,15 +53,13 @@ document.addEventListener('DOMContentLoaded', () => {
   function introAnimation() {
     const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
 
-    tl.to('.hero-label', { y: 0, opacity: 1, duration: 0.6 })
-      .to('#hero-typewriter', { opacity: 1, duration: 0.5 }, '-=0.2')
-      .to('.hero-ctas', { y: 0, opacity: 1, duration: 0.7 }, '+=0.2')
+    tl.to('#hero-typewriter', { opacity: 1, duration: 0.5 })
+      .to('.hero-ctas', { y: 0, opacity: 1, duration: 0.7 }, '+=0.3')
       .to('.scroll-indicator', { opacity: 1, duration: 0.5 }, '-=0.3')
       .call(startTypewriter);
   }
 
   // Set initial state for hero content
-  gsap.set('.hero-label', { y: 20, opacity: 0 });
   gsap.set('.hero-ctas', { y: 20, opacity: 0 });
   gsap.set('.scroll-indicator', { opacity: 0 });
 
@@ -146,12 +144,23 @@ document.addEventListener('DOMContentLoaded', () => {
     repeat: -1
   });
 
+  // ─── Hero CTAs — fade out while scrolling past hero ──────────
+  gsap.to('.hero-ctas', {
+    opacity: 0,
+    y: -20,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '.hero',
+      start: 'center top',
+      end: 'bottom top',
+      scrub: true
+    }
+  });
+
   // ─── Stats Counters ───────────────────────────────────────────
   document.querySelectorAll('.stat-num').forEach(el => {
-    const target   = parseFloat(el.dataset.target);
-    const suffix   = el.dataset.suffix || '';
-    const prefix   = el.previousElementSibling?.classList.contains('stat-prefix')
-      ? el.previousElementSibling.textContent : '';
+    const target    = parseFloat(el.dataset.target);
+    const suffix    = el.dataset.suffix || '';
     const isDecimal = target % 1 !== 0;
 
     const obj = { val: 0 };
