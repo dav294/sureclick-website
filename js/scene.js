@@ -218,7 +218,7 @@ function animate() {
   // Scroll: camera pulls back, particles maintain visibility
   camera.position.z = 6 + sp * 4;
   camera.position.y = sp * 1.2;
-  pMat.opacity      = Math.max(0.25, 0.85 - sp * 0.55);
+  pMat.opacity      = Math.max(0.55, 0.92 - sp * 0.35);
 
   // Network: smooth gradual fade as user scrolls down
   const netFade = Math.max(0, 1 - sp * 2.8);

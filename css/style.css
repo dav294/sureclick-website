@@ -518,7 +518,7 @@ body::before {
 .stats-section {
   position: relative;
   z-index: 1;
-  background: rgba(11, 21, 37, 0.80);
+  background: rgba(11, 21, 37, 0.72);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 }
@@ -589,7 +589,7 @@ body::before {
 .services-section {
   position: relative;
   z-index: 1;
-  background: rgba(6, 12, 22, 0.80);
+  background: rgba(6, 12, 22, 0.72);
   padding: 120px 0;
 }
 
@@ -705,7 +705,7 @@ body::before {
 .clients-section {
   position: relative;
   z-index: 1;
-  background: rgba(11, 21, 37, 0.80);
+  background: rgba(11, 21, 37, 0.72);
   padding: 120px 0;
   border-top: 1px solid var(--border);
 }
@@ -769,7 +769,7 @@ body::before {
 .cta-section {
   position: relative;
   z-index: 1;
-  background: rgba(6, 12, 22, 0.82);
+  background: rgba(6, 12, 22, 0.72);
   padding: 160px 40px;
   text-align: center;
   overflow: hidden;
