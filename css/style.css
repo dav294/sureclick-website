@@ -306,8 +306,6 @@ body::before {
   position: relative;
   z-index: 1;
   min-height: 100vh;
-  display: flex;
-  align-items: flex-start;
   background: transparent;
   overflow: hidden;
 }
@@ -336,11 +334,13 @@ body::before {
 }
 
 .hero-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 38vh 16px 0;
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  transform: translateX(-50%);
   width: 100%;
-  position: relative;
+  max-width: 1200px;
+  padding: 0 16px;
   z-index: 2;
 }
 
@@ -963,7 +963,7 @@ body::before {
 }
 
 @media (max-width: 600px) {
-  .hero-content { padding: 28vh 24px 0; }
+  .hero-content { top: 30%; padding: 0 24px; }
   .hero-heading { font-size: clamp(3rem, 13vw, 5rem); }
 
   .services-header,
