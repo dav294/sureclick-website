@@ -965,7 +965,7 @@ body::before {
     left: auto;
     transform: none;
     max-width: 100%;
-    padding: 0 20px;
+    padding: 0 20px 0 28px;
   }
   .hero-heading {
     font-size: clamp(2.6rem, 13vw, 4.2rem);
@@ -977,7 +977,7 @@ body::before {
   /* CTAs pinned to section bottom */
   .hero-ctas {
     position: absolute;
-    bottom: 44px;
+    bottom: 72px;
     top: auto;
     left: 0;
     right: 0;
