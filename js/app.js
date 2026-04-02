@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   ];
 
-  const TWP = { TYPE: 52, DELETE: 28, PAUSE_AFTER: 1900, PAUSE_BETWEEN: 200, PAUSE_PREFIX: 480 };
+  const TWP = { TYPE: 38, DELETE: 20, PAUSE_AFTER: 1500, PAUSE_BETWEEN: 150, PAUSE_PREFIX: 340 };
 
   function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
 
