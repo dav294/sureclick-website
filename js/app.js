@@ -134,6 +134,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // ─── Contact Popup ────────────────────────────────────────────
+  const popup    = document.getElementById('contact-popup');
+  const backdrop = popup.querySelector('.contact-popup-backdrop');
+  const closeBtn = popup.querySelector('.contact-popup-close');
+
+  function openPopup()  { popup.classList.add('is-open'); }
+  function closePopup() { popup.classList.remove('is-open'); }
+
+  document.getElementById('open-contact-popup').addEventListener('click', openPopup);
+  backdrop.addEventListener('click', closePopup);
+  closeBtn.addEventListener('click', closePopup);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closePopup(); });
+
   // ─── Nav Hide / Show on Scroll ───────────────────────────────
   const nav = document.getElementById('site-nav');
   let lastScroll = 0;

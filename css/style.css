@@ -180,16 +180,14 @@ body::before {
 .nav-links a:hover { color: var(--white); }
 .nav-links a:hover::after { width: 100%; }
 
-/* Nav contact dropdown */
+/* Nav contact button */
 .nav-contact {
-  position: relative;
   margin-left: auto;
 }
 
 .nav-contact-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
   padding: 10px 22px;
   background: var(--primary);
   color: var(--white);
@@ -200,101 +198,131 @@ body::before {
   border-radius: 5px;
   cursor: pointer;
   letter-spacing: 0.03em;
-  transition: background 0.2s, transform 0.15s;
+  transition: background 0.2s;
   white-space: nowrap;
 }
 
-.nav-contact-btn .chevron {
-  font-size: 0.65rem;
-  transition: transform 0.2s;
-}
-
-.nav-contact:hover .nav-contact-btn {
+.nav-contact-btn:hover {
   background: var(--accent);
   color: var(--bg);
 }
 
-.nav-contact:hover .chevron {
-  transform: rotate(180deg);
-}
-
-.nav-contact-dropdown {
-  position: absolute;
-  top: calc(100% + 12px);
-  right: 0;
-  background: rgba(11, 21, 37, 0.97);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 10px;
-  padding: 6px;
-  min-width: 240px;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-8px);
-  transition: opacity 0.22s, transform 0.22s, visibility 0.22s;
-  z-index: 200;
-  box-shadow: 0 16px 40px rgba(0,0,0,0.5);
-}
-
-.nav-contact:hover .nav-contact-dropdown {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-.nav-contact-dropdown a {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 14px;
-  font-size: 0.875rem;
-  color: rgba(255,255,255,0.65);
-  border-radius: 6px;
-  transition: color 0.18s, background 0.18s;
-}
-
-.nav-contact-dropdown a:hover {
-  color: var(--white);
-  background: rgba(14, 98, 173, 0.2);
-}
-
-.contact-icon {
+/* ── Contact Popup ───────────────────────────────────────── */
+.contact-popup {
+  position: fixed;
+  inset: 0;
+  z-index: 9500;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
-  background: rgba(14, 98, 173, 0.25);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.contact-popup.is-open {
+  pointer-events: all;
+  opacity: 1;
+}
+
+.contact-popup-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.contact-popup-card {
+  position: relative;
+  z-index: 1;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 40px 36px 32px;
+  width: min(420px, 90vw);
+  transform: translateY(14px);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.contact-popup.is-open .contact-popup-card {
+  transform: translateY(0);
+}
+
+.contact-popup-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 6px;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.contact-popup-close:hover { color: var(--white); }
+
+.contact-popup-heading {
+  font-family: var(--font-disp);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 28px;
+  letter-spacing: -0.02em;
+}
+
+.contact-popup-btn {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  padding: 18px 20px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
   border-radius: 6px;
+  text-decoration: none;
+  color: var(--white);
+  transition: background 0.2s, border-color 0.2s;
+  margin-bottom: 12px;
+}
+
+.contact-popup-btn:last-child { margin-bottom: 0; }
+
+.contact-popup-btn:hover {
+  background: rgba(14, 98, 173, 0.12);
+  border-color: rgba(14, 98, 173, 0.4);
+}
+
+.contact-popup-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.75;
   flex-shrink: 0;
 }
 
-.contact-icon img {
-  width: 16px;
-  height: 16px;
-  object-fit: contain;
-  filter: brightness(0) invert(1);
-  opacity: 0.85;
-}
-
-.contact-detail {
+.contact-popup-detail {
   display: flex;
   flex-direction: column;
-  gap: 1px;
+  gap: 3px;
 }
 
-.contact-type {
+.contact-popup-type {
   font-size: 0.68rem;
   font-weight: 600;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--accent);
 }
 
-.contact-value {
-  font-size: 0.875rem;
-  color: rgba(255,255,255,0.8);
+.contact-popup-value {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--white);
 }
 
 /* =============================================================
