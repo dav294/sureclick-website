@@ -900,17 +900,19 @@ body::before {
    RESPONSIVE
 ============================================================= */
 
+/* ── Tablet (≤ 900px) ─────────────────────────────────────── */
 @media (max-width: 900px) {
   .nav-links { display: none; }
+  .nav-inner  { padding: 0 24px; gap: 20px; }
 
   .stats-inner {
     grid-template-columns: 1fr;
     gap: 0;
-    max-width: 360px;
+    max-width: 480px;
   }
 
   .stat-divider {
-    width: 40px;
+    width: 56px;
     height: 1px;
     margin: 0 auto;
   }
@@ -918,40 +920,91 @@ body::before {
   .service-row,
   .service-row.reverse {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 20px;
+    padding: 44px 24px;
   }
 
   .service-row.reverse .service-num,
   .service-row.reverse .service-content,
-  .service-row.reverse .service-orb {
-    order: unset;
-  }
+  .service-row.reverse .service-orb { order: unset; }
 
   .service-orb { display: none; }
   .service-num { text-align: left; }
 
-  .clients-grid { gap: 32px; }
+  .services-header,
+  .clients-header { padding: 0 24px; }
 
-  .footer-top { grid-template-columns: 1fr; gap: 48px; }
-  .footer-nav { justify-content: flex-start; }
+  .footer-top  { grid-template-columns: 1fr; gap: 40px; }
+  .footer-nav  { justify-content: flex-start; gap: 48px; }
+  .footer-inner { padding: 64px 24px 36px; }
   .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
 }
 
+/* ── Mobile (≤ 600px) ─────────────────────────────────────── */
 @media (max-width: 600px) {
-  .hero-content { top: 30%; padding: 0 24px; }
-  .hero-heading { font-size: clamp(3rem, 13vw, 5rem); }
+  /* Nav */
+  .nav-inner       { padding: 0 20px; gap: 12px; }
+  .nav-logo img    { height: 34px; }
+  .nav-contact-btn { padding: 9px 16px; font-size: 0.82rem; }
 
-  .services-header,
+  /* Hero — typewriter is a sentence so font must stay small */
+  .hero-content {
+    top: 26%;
+    padding: 0 20px;
+  }
+  .hero-heading {
+    font-size: clamp(0.9rem, 4.2vw, 1.2rem);
+    line-height: 1.6;
+    letter-spacing: 0;
+    margin-bottom: 0;
+  }
+
+  /* CTAs: anchor below text instead of to viewport bottom */
+  .hero-ctas {
+    top: calc(26% + 100px);
+    bottom: auto;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 0 20px;
+  }
+  .hero-ctas .btn {
+    width: 100%;
+    max-width: 300px;
+    justify-content: center;
+  }
+
+  /* Stats */
+  .stats-inner {
+    max-width: 100%;
+    padding: 56px 20px;
+  }
+  .stat-item   { padding: 16px 20px; }
+  .stat-num,
+  .stat-prefix { font-size: clamp(2.2rem, 11vw, 3.6rem); }
+  .stat-label  { white-space: normal; font-size: 0.7rem; }
+
+  /* Services */
+  .services-section { padding: 80px 0; }
+  .services-header  { padding: 0 20px; margin-bottom: 48px; }
   .service-row,
-  .clients-header,
-  .footer-inner { padding-left: 24px; padding-right: 24px; }
+  .service-row.reverse { padding: 32px 20px; gap: 14px; }
+  .service-title { font-size: clamp(1.4rem, 5.5vw, 1.8rem); }
+  .service-desc  { font-size: 0.95rem; margin-bottom: 20px; }
 
-  .stats-inner { padding: 60px 24px; }
+  /* Clients */
+  .clients-section { padding: 72px 0; }
+  .clients-header  { padding: 0 20px; margin-bottom: 40px; }
+  .client-logo     { padding: 0 28px; }
+  .client-logo img { height: 36px; max-width: 120px; }
 
-  .stats-inner { grid-template-columns: 1fr 1fr; }
+  /* CTA section */
+  .cta-section  { padding: 80px 20px; }
+  .cta-heading  { font-size: clamp(1.8rem, 7.5vw, 2.6rem); }
+  .cta-sub      { font-size: 0.95rem; margin-bottom: 36px; }
 
-  .cta-section { padding: 100px 24px; }
-  .cta-heading { font-size: clamp(2.2rem, 9vw, 3rem); }
-
-  .hero-ctas { flex-direction: column; align-items: flex-start; }
+  /* Footer */
+  .footer-inner { padding: 56px 20px 32px; }
+  .footer-nav   { gap: 32px; }
+  .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
 }
