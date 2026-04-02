@@ -22,7 +22,6 @@
 html {
   scroll-behavior: auto; /* Lenis handles smooth scroll */
   background: var(--bg);
-  overflow-x: hidden;
 }
 
 body {
@@ -30,7 +29,13 @@ body {
   background: var(--bg);
   color: var(--white);
   overflow-x: hidden;
+  max-width: 100vw;
   cursor: default;
+}
+
+main {
+  max-width: 100vw;
+  overflow: hidden;
 }
 
 a { text-decoration: none; color: inherit; }
@@ -314,6 +319,7 @@ body::before {
   position: relative;
   z-index: 1;
   min-height: 100vh;
+  max-width: 100vw;
   background: transparent;
   overflow: hidden;
 }
@@ -491,6 +497,7 @@ body::before {
   position: relative;
   z-index: 1;
   overflow: hidden;
+  max-width: 100vw;
   background: var(--primary);
   padding: 14px 0;
   border-top: 1px solid rgba(255,255,255,0.1);
@@ -528,6 +535,7 @@ body::before {
 .stats-section {
   position: relative;
   z-index: 1;
+  max-width: 100vw;
   background: rgba(11, 21, 37, 0.72);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
@@ -599,6 +607,7 @@ body::before {
 .services-section {
   position: relative;
   z-index: 1;
+  max-width: 100vw;
   background: rgba(6, 12, 22, 0.72);
   padding: 120px 0;
 }
@@ -715,6 +724,7 @@ body::before {
 .clients-section {
   position: relative;
   z-index: 1;
+  max-width: 100vw;
   background: rgba(11, 21, 37, 0.72);
   padding: 120px 0;
   border-top: 1px solid var(--border);
@@ -779,6 +789,7 @@ body::before {
 .cta-section {
   position: relative;
   z-index: 1;
+  max-width: 100vw;
   background: rgba(6, 12, 22, 0.72);
   padding: 160px 40px;
   text-align: center;
@@ -831,6 +842,7 @@ body::before {
 .site-footer {
   position: relative;
   z-index: 1;
+  max-width: 100vw;
   background: #0b1525;
   border-top: 1px solid var(--border);
 }
