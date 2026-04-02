@@ -55,7 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     tl.to('#hero-typewriter', { opacity: 1, duration: 0.5 })
       .to('.hero-ctas', { y: 0, opacity: 1, duration: 0.7 }, '+=0.3')
-      .to('.scroll-indicator', { opacity: 1, duration: 0.5 }, '-=0.3')
       .call(() => {
         startTypewriter();
         // Register AFTER CTAs are opacity:1 so GSAP records the correct from-state
@@ -75,7 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Set initial state for hero content
   gsap.set('.hero-ctas', { y: 20, opacity: 0 });
-  gsap.set('.scroll-indicator', { opacity: 0 });
 
   // ─── Typewriter Animation ─────────────────────────────────────
   const PHRASES = [
@@ -249,13 +247,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  ctaTl
-    .to('.cta-heading', { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out' })
-    .to('.cta-sub',     { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out' }, '-=0.5')
-    .from('.cta-section .btn', { y: 20, opacity: 0, duration: 0.6, ease: 'power3.out' }, '-=0.4');
+  gsap.set('.cta-heading',      { y: 50, opacity: 0 });
+  gsap.set('.cta-sub',          { y: 30, opacity: 0 });
+  gsap.set('.cta-section .btn', { y: 20, opacity: 0 });
 
-  gsap.set('.cta-heading', { y: 50, opacity: 0 });
-  gsap.set('.cta-sub',     { y: 30, opacity: 0 });
+  ctaTl
+    .to('.cta-heading',      { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out' })
+    .to('.cta-sub',          { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out' }, '-=0.5')
+    .to('.cta-section .btn', { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' }, '-=0.4');
 
   // ─── Footer Entrance ─────────────────────────────────────────
   gsap.fromTo('.site-footer',

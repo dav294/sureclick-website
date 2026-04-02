@@ -114,7 +114,7 @@ body::before {
   left: 0;
   right: 0;
   z-index: 9000; /* above canvas, Three.js, and all content */
-  padding: 14px 0;
+  padding: 20px 0;
   background: rgba(6, 12, 22, 0.72);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -136,11 +136,11 @@ body::before {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 32px;
+  gap: 48px;
 }
 
 .nav-logo img {
-  height: 36px;
+  height: 44px;
   width: auto;
   object-fit: contain;
 }
@@ -261,8 +261,15 @@ body::before {
   height: 30px;
   background: rgba(14, 98, 173, 0.25);
   border-radius: 6px;
-  font-size: 0.875rem;
   flex-shrink: 0;
+}
+
+.contact-icon img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.85;
 }
 
 .contact-detail {
@@ -422,38 +429,6 @@ body::before {
   z-index: 2;
 }
 
-/* Scroll indicator */
-.scroll-indicator {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  opacity: 0;
-  z-index: 2;
-}
-
-.scroll-indicator span {
-  font-size: 0.65rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.scroll-line {
-  width: 1px;
-  height: 48px;
-  background: linear-gradient(to bottom, var(--accent), transparent);
-  animation: scrollPulse 2s ease-in-out infinite;
-}
-
-@keyframes scrollPulse {
-  0%, 100% { opacity: 0.3; transform: scaleY(1); }
-  50% { opacity: 1; transform: scaleY(0.7); }
-}
 
 /* =============================================================
    BUTTONS
