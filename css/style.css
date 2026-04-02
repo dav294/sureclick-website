@@ -22,6 +22,7 @@
 html {
   scroll-behavior: auto; /* Lenis handles smooth scroll */
   background: var(--bg);
+  overflow-x: hidden;
 }
 
 body {
