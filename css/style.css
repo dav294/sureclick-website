@@ -381,6 +381,11 @@ body::before {
   border-radius: 2px;
 }
 
+#tw-service:empty {
+  background: none;
+  padding: 0;
+}
+
 .tw-cursor {
   display: inline-block;
   color: var(--accent);
@@ -969,14 +974,13 @@ body::before {
     margin-bottom: 0;
   }
 
-  /* CTAs sit directly below text in normal flow */
+  /* CTAs pinned to section bottom */
   .hero-ctas {
-    position: relative;
+    position: absolute;
+    bottom: 44px;
     top: auto;
-    bottom: auto;
-    left: auto;
-    right: auto;
-    margin-top: 36px;
+    left: 0;
+    right: 0;
     flex-direction: column;
     align-items: center;
     gap: 12px;
