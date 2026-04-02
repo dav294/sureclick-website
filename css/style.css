@@ -356,11 +356,11 @@ body::before {
 }
 
 .hero-heading {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: clamp(1.9rem, 3vw, 2.8rem);
   font-weight: 500;
   line-height: 1.5;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.01em;
   margin-bottom: 40px;
   opacity: 0;
   color: var(--white);
