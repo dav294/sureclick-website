@@ -33,6 +33,10 @@ Client logos are stored in `projects/SureClick/clients/`.
 | Fika | `Fika Logo Transparent.png` |
 | Sleepover Club | `SleepoverClubLogo.png` |
 
+## About
+
+SureClick is a modern digital agency founded by a results-driven team with a strong background in web design, eCommerce, and performance marketing, based in Swords, Dublin and working with businesses across Ireland and the UK. We specialise in helping small to medium-sized businesses turn their online presence into a consistent source of revenue through expert-level UI/UX design that maximises conversions, data-backed SEO strategies that drive high-intent organic traffic, and high-performing paid advertising across Google and social platforms. By combining design, data, and marketing expertise, we don't just improve how your business looks online — we fundamentally improve how it performs.
+
 ## Tone of Voice
 
 Expert, forward-thinking, and results-focused.

@@ -49,15 +49,17 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ─── Intro Animation (runs after loader hides) ────────────────
-  // Nav is always visible via CSS — only hero content is animated in
   function introAnimation() {
     const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
 
-    tl.to('#hero-typewriter', { opacity: 1, duration: 0.5 })
-      .to('.hero-ctas', { y: 0, opacity: 1, duration: 0.7 }, '+=0.3')
+    tl.to('.hero-label',     { opacity: 1, y: 0, duration: 0.4 })
+      .to('#hero-typewriter', { opacity: 1, duration: 0.5 }, '+=0.1')
+      .to('.hero-sub',        { opacity: 1, y: 0, duration: 0.6 }, '+=0.2')
+      .to('.hero-usp',        { opacity: 1, y: 0, duration: 0.5 }, '-=0.3')
+      .to('.hero-ctas',       { y: 0, opacity: 1, duration: 0.7 }, '+=0.1')
       .call(() => {
         startTypewriter();
-        // Register AFTER CTAs are opacity:1 so GSAP records the correct from-state
+        // Fade CTAs out as hero scrolls away
         gsap.to('.hero-ctas', {
           opacity: 0,
           y: -20,
@@ -72,33 +74,36 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   }
 
-  // Set initial state for hero content
-  gsap.set('.hero-ctas', { y: 20, opacity: 0 });
+  // Set initial states for hero content
+  gsap.set('.hero-label',  { y: 10, opacity: 0 });
+  gsap.set('.hero-sub',    { y: 15, opacity: 0 });
+  gsap.set('.hero-usp',    { y: 10, opacity: 0 });
+  gsap.set('.hero-ctas',   { y: 20, opacity: 0 });
 
   // ─── Typewriter Animation ─────────────────────────────────────
   const PHRASES = [
     {
-      prefix: 'Grow your business with ',
+      prefix: 'Your website should be generating ',
       services: [
-        'expert web design & development.',
-        'high-converting PPC campaigns.',
-        'results-driven social media.'
+        'leads on autopilot.',
+        'consistent revenue.',
+        'real business growth.'
       ]
     },
     {
-      prefix: 'Drive more revenue through ',
+      prefix: 'We build digital that ',
       services: [
-        'conversion-focused SEO.',
-        'performance-driven web design.',
-        'targeted social media advertising.'
+        'converts visitors into customers.',
+        'ranks higher on Google.',
+        'delivers measurable ROI.'
       ]
     },
     {
-      prefix: 'Reach more customers with ',
+      prefix: 'Stop losing customers to ',
       services: [
-        'strategic digital marketing.',
-        'standout web design & development.',
-        'precision PPC advertising.'
+        'a website that doesn\'t convert.',
+        'competitors with better SEO.',
+        'poorly managed ad spend.'
       ]
     }
   ];
@@ -142,7 +147,11 @@ document.addEventListener('DOMContentLoaded', () => {
   function openPopup()  { popup.classList.add('is-open'); }
   function closePopup() { popup.classList.remove('is-open'); }
 
-  document.getElementById('open-contact-popup').addEventListener('click', openPopup);
+  // All elements with js-open-popup trigger the modal
+  document.querySelectorAll('.js-open-popup').forEach(el => {
+    el.addEventListener('click', openPopup);
+  });
+
   backdrop.addEventListener('click', closePopup);
   closeBtn.addEventListener('click', closePopup);
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closePopup(); });
@@ -152,7 +161,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let lastScroll = 0;
 
   lenis.on('scroll', ({ scroll }) => {
-    // Hide on scroll down, show on scroll up
     if (scroll > lastScroll && scroll > 120) {
       nav.classList.add('nav-hidden');
     } else {
@@ -168,6 +176,54 @@ document.addEventListener('DOMContentLoaded', () => {
     ease: 'none',
     repeat: -1
   });
+
+  // ─── About Section Entrance ───────────────────────────────────
+  gsap.fromTo('.about-inner',
+    { y: 40, opacity: 0 },
+    {
+      y: 0,
+      opacity: 1,
+      duration: 0.9,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.about-section',
+        start: 'top 80%',
+        toggleActions: 'play none none none'
+      }
+    }
+  );
+
+  gsap.fromTo('.about-pillar',
+    { y: 20, opacity: 0 },
+    {
+      y: 0,
+      opacity: 1,
+      duration: 0.5,
+      ease: 'power3.out',
+      stagger: 0.12,
+      scrollTrigger: {
+        trigger: '.about-pillars',
+        start: 'top 85%',
+        toggleActions: 'play none none none'
+      }
+    }
+  );
+
+  // ─── Stats Header ─────────────────────────────────────────────
+  gsap.fromTo('.stats-header-wrap',
+    { y: 30, opacity: 0 },
+    {
+      y: 0,
+      opacity: 1,
+      duration: 0.8,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.stats-header-wrap',
+        start: 'top 85%',
+        toggleActions: 'play none none none'
+      }
+    }
+  );
 
   // ─── Stats Counters ───────────────────────────────────────────
   document.querySelectorAll('.stat-num').forEach(el => {
@@ -195,6 +251,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // ─── Stats Section Entrance ───────────────────────────────────
+  gsap.fromTo('.stats-inner',
+    { y: 30, opacity: 0 },
+    {
+      y: 0,
+      opacity: 1,
+      duration: 0.8,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.stats-section',
+        start: 'top 80%',
+        toggleActions: 'play none none none'
+      }
+    }
+  );
+
   // ─── Service Row Entrance ─────────────────────────────────────
   document.querySelectorAll('.service-row').forEach(row => {
     const dir = row.dataset.dir === 'right' ? 60 : -60;
@@ -215,8 +287,25 @@ document.addEventListener('DOMContentLoaded', () => {
     );
   });
 
+  // ─── Additional Services Entrance ─────────────────────────────
+  gsap.fromTo('.additional-item',
+    { y: 30, opacity: 0 },
+    {
+      y: 0,
+      opacity: 1,
+      duration: 0.7,
+      ease: 'power3.out',
+      stagger: 0.15,
+      scrollTrigger: {
+        trigger: '.additional-services',
+        start: 'top 82%',
+        toggleActions: 'play none none none'
+      }
+    }
+  );
+
   // ─── Section Headers ─────────────────────────────────────────
-  gsap.utils.toArray('.services-header, .clients-header').forEach(el => {
+  gsap.utils.toArray('.services-header, .clients-header, .about-intro').forEach(el => {
     gsap.fromTo(el,
       { y: 40, opacity: 0 },
       {
@@ -232,22 +321,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     );
   });
-
-  // ─── Stats Section Entrance ───────────────────────────────────
-  gsap.fromTo('.stats-inner',
-    { y: 30, opacity: 0 },
-    {
-      y: 0,
-      opacity: 1,
-      duration: 0.8,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: '.stats-section',
-        start: 'top 80%',
-        toggleActions: 'play none none none'
-      }
-    }
-  );
 
   // Client logos use CSS infinite scroll animation — no JS needed
 
