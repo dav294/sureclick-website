@@ -54,8 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     tl.to('.hero-label',     { opacity: 1, y: 0, duration: 0.4 })
       .to('#hero-typewriter', { opacity: 1, duration: 0.5 }, '+=0.1')
-      .to('.hero-sub',        { opacity: 1, y: 0, duration: 0.6 }, '+=0.2')
-      .to('.hero-usp',        { opacity: 1, y: 0, duration: 0.5 }, '-=0.3')
+      .to('.hero-usp',        { opacity: 1, y: 0, duration: 0.5 }, '+=0.2')
       .to('.hero-ctas',       { y: 0, opacity: 1, duration: 0.7 }, '+=0.1')
       .call(() => {
         startTypewriter();
@@ -76,7 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Set initial states for hero content
   gsap.set('.hero-label',  { y: 10, opacity: 0 });
-  gsap.set('.hero-sub',    { y: 15, opacity: 0 });
   gsap.set('.hero-usp',    { y: 10, opacity: 0 });
   gsap.set('.hero-ctas',   { y: 20, opacity: 0 });
 
@@ -286,6 +284,38 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     );
   });
+
+  // ─── Pricing Section Entrance ────────────────────────────────
+  gsap.fromTo('.pricing-header',
+    { y: 40, opacity: 0 },
+    {
+      y: 0,
+      opacity: 1,
+      duration: 0.8,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.pricing-section',
+        start: 'top 80%',
+        toggleActions: 'play none none none'
+      }
+    }
+  );
+
+  gsap.fromTo('.pricing-card',
+    { y: 40, opacity: 0 },
+    {
+      y: 0,
+      opacity: 1,
+      duration: 0.7,
+      ease: 'power3.out',
+      stagger: 0.12,
+      scrollTrigger: {
+        trigger: '.pricing-grid',
+        start: 'top 82%',
+        toggleActions: 'play none none none'
+      }
+    }
+  );
 
   // ─── Additional Services Entrance ─────────────────────────────
   gsap.fromTo('.additional-item',
