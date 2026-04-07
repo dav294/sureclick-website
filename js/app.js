@@ -89,11 +89,11 @@ document.addEventListener('DOMContentLoaded', () => {
       ]
     },
     {
-      prefix: 'We build digital that ',
+      prefix: 'The brands winning online are ',
       services: [
-        'converts visitors into customers.',
-        'ranks higher on Google.',
-        'delivers measurable ROI.'
+        'investing in conversion-focused design.',
+        'dominating with data-driven SEO.',
+        'scaling revenue through precision PPC.'
       ]
     },
     {
