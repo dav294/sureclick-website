@@ -1,16 +1,14 @@
 // scene.js — SureClick Three.js Background
-// Node network (digital connectivity) + galaxy particle field
+// Intergalactic galaxy: branded planets + star field
 
 import * as THREE from 'three';
 
+const isMobile = window.innerWidth < 768;
+
 // ─── Renderer ────────────────────────────────────────────────
 const canvas = document.getElementById('bg-canvas');
-const renderer = new THREE.WebGLRenderer({
-  canvas,
-  antialias: true,
-  alpha: false
-});
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: !isMobile, alpha: false });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setClearColor(0x060c16, 1);
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -18,171 +16,219 @@ renderer.toneMappingExposure = 1.0;
 
 // ─── Scene & Camera ──────────────────────────────────────────
 const scene = new THREE.Scene();
-scene.fog   = new THREE.FogExp2(0x060c16, 0.042);
+scene.fog = new THREE.FogExp2(0x060c16, 0.028);
 
-const camera = new THREE.PerspectiveCamera(
-  60,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  120
-);
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 120);
 camera.position.set(0, 0, 6);
 
-// ─── Particles (galaxy field) ─────────────────────────────────
-const COUNT = 3400;
-const positions = new Float32Array(COUNT * 3);
-const colors    = new Float32Array(COUNT * 3);
+// ─── Lighting ────────────────────────────────────────────────
+scene.add(new THREE.AmbientLight(0x0a1830, 2.2));
+
+// Primary "star" light — upper left, cyan-tinted
+const starLight = new THREE.PointLight(0x5cc6ff, 2.8, 55);
+starLight.position.set(-5, 5, 8);
+scene.add(starLight);
+
+// Secondary fill — lower right, brand blue
+const fillLight = new THREE.PointLight(0x0e62ad, 1.4, 40);
+fillLight.position.set(7, -3, 5);
+scene.add(fillLight);
+
+// ─── Star Field ──────────────────────────────────────────────
+const STAR_COUNT = isMobile ? 2000 : 3400;
+const starPos = new Float32Array(STAR_COUNT * 3);
+const starCol = new Float32Array(STAR_COUNT * 3);
 
 const cPrimary = new THREE.Color('#0e62ad');
 const cAccent  = new THREE.Color('#5cc6ff');
 const cDeep    = new THREE.Color('#061430');
 const cWhite   = new THREE.Color('#a8c8f0');
 
-for (let i = 0; i < COUNT; i++) {
+for (let i = 0; i < STAR_COUNT; i++) {
   const rand = Math.random();
-
-  // Three shells: inner cluster, mid-field, deep outer field
-  let radius;
-  if (rand < 0.15) {
-    radius = 1.4 + Math.random() * 1.2;           // inner
-  } else if (rand < 0.65) {
-    radius = 3.2 + Math.random() * 4.0;           // mid
-  } else {
-    radius = 8.0 + Math.random() * 10.0;          // deep outer — visible as page scrolls
-  }
+  const r = rand < 0.15 ? 1.4 + Math.random() * 1.2
+          : rand < 0.65 ? 3.2 + Math.random() * 4.0
+          :               8.0 + Math.random() * 10.0;
 
   const theta = Math.random() * Math.PI * 2;
   const phi   = Math.acos(2 * Math.random() - 1);
+  starPos[i * 3]     = r * Math.sin(phi) * Math.cos(theta);
+  starPos[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+  starPos[i * 3 + 2] = r * Math.cos(phi);
 
-  positions[i * 3]     = radius * Math.sin(phi) * Math.cos(theta);
-  positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-  positions[i * 3 + 2] = radius * Math.cos(phi);
-
-  // Colour gradient: deep → primary → accent → near-white for distant stars
-  const t   = Math.random();
-  let col;
-  if (t < 0.33) {
-    col = cDeep.clone().lerp(cPrimary, t * 3);
-  } else if (t < 0.66) {
-    col = cPrimary.clone().lerp(cAccent, (t - 0.33) * 3);
-  } else {
-    col = cAccent.clone().lerp(cWhite, (t - 0.66) * 3);
-  }
-
-  colors[i * 3]     = col.r;
-  colors[i * 3 + 1] = col.g;
-  colors[i * 3 + 2] = col.b;
+  const t = Math.random();
+  const c = t < 0.33 ? cDeep.clone().lerp(cPrimary, t * 3)
+          : t < 0.66 ? cPrimary.clone().lerp(cAccent, (t - 0.33) * 3)
+          :             cAccent.clone().lerp(cWhite, (t - 0.66) * 3);
+  starCol[i * 3] = c.r; starCol[i * 3 + 1] = c.g; starCol[i * 3 + 2] = c.b;
 }
 
-const pGeo = new THREE.BufferGeometry();
-pGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-pGeo.setAttribute('color',    new THREE.BufferAttribute(colors, 3));
+const starGeo = new THREE.BufferGeometry();
+starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+starGeo.setAttribute('color',    new THREE.BufferAttribute(starCol, 3));
 
-const pMat = new THREE.PointsMaterial({
-  size:            0.016,
-  vertexColors:    true,
-  sizeAttenuation: true,
-  transparent:     true,
-  opacity:         0.88,
-  depthWrite:      false
+const starMat = new THREE.PointsMaterial({
+  size: 0.016, vertexColors: true, sizeAttenuation: true,
+  transparent: true, opacity: 0.88, depthWrite: false
 });
-
-const particles = new THREE.Points(pGeo, pMat);
+const particles = new THREE.Points(starGeo, starMat);
 scene.add(particles);
 
-// ─── Node Network (central element) ──────────────────────────
-// Represents digital connectivity — web, marketing, SureClick brand
-const networkGroup = new THREE.Group();
-scene.add(networkGroup);
+// ─── Planets ─────────────────────────────────────────────────
+// Each planet: sphere + atmospheric BackSide glow + outer haze + optional ring
+// All colours drawn from SureClick palette: #0e62ad / #5cc6ff / #060c16
 
-// [x, y, z, radius, colorHex, glowOpacity]
-const NODE_DEFS = [
-  [  0.0,  0.0,  0.0,  0.13, 0x5cc6ff, 0.12 ],  // 0: central hub
-  [  1.8,  0.5,  0.3,  0.07, 0x0e62ad, 0.07 ],   // 1
-  [ -1.6,  0.7, -0.4,  0.06, 0x5cc6ff, 0.06 ],   // 2
-  [  0.5, -1.8,  0.7,  0.08, 0x0e62ad, 0.07 ],   // 3
-  [ -0.9, -1.3, -1.0,  0.06, 0x5cc6ff, 0.06 ],   // 4
-  [  1.3,  1.3, -0.8,  0.07, 0x0e62ad, 0.07 ],   // 5
-  [ -1.7, -0.5,  0.5,  0.07, 0x5cc6ff, 0.06 ],   // 6
-  [  0.2,  1.7,  0.6,  0.06, 0x0e62ad, 0.06 ],   // 7
+const PLANET_DEFS = [
+  // [0] Large ringed planet — right of centre, deep navy
+  {
+    x: 2.1, y: 0.4, z: -1.2,
+    r: isMobile ? 0.36 : 0.52,
+    col:       0x0a3d7a,
+    emissive:  0x041830,
+    shininess: 55,
+    glow:  { col: 0x1a6ec4, scale: 1.48, op: 0.09 },
+    halo:  { col: 0x0e62ad, scale: 2.20, op: 0.035 },
+    ring:  { inner: 0.70, outer: 1.14, col: 0x5cc6ff, op: 0.18, rx: 0.40, rz: 0.08 },
+    float: { amp: 0.07, spd: 0.55, off: 0.0 },
+    rotSpd: { y: 0.035, x: 0.014 },
+  },
+  // [1] Medium icy planet — upper left, vivid cyan atmosphere
+  {
+    x: isMobile ? -1.7 : -2.6,
+    y: isMobile ?  0.9 :  1.4,
+    z: 0.2,
+    r: isMobile ? 0.21 : 0.30,
+    col:       0x0c4878,
+    emissive:  0x061530,
+    shininess: 90,
+    glow:  { col: 0x5cc6ff, scale: 1.70, op: 0.10 },
+    halo:  { col: 0x5cc6ff, scale: 2.60, op: 0.038 },
+    ring:  null,
+    float: { amp: 0.06, spd: 0.42, off: 1.8 },
+    rotSpd: { y: 0.024, x: 0.010 },
+  },
+  // [2] Small dark planet — lower left, neon-cyan ring
+  {
+    x: -1.55, y: -1.5, z: -0.5,
+    r: 0.17,
+    col:       0x06101e,
+    emissive:  0x040d1a,
+    shininess: 25,
+    glow:  { col: 0x0e62ad, scale: 1.80, op: 0.13 },
+    halo:  { col: 0x0e62ad, scale: 2.90, op: 0.042 },
+    ring:  { inner: 0.25, outer: 0.46, col: 0x5cc6ff, op: 0.40, rx: 0.65, rz: 0.22 },
+    float: { amp: 0.05, spd: 0.72, off: 3.2 },
+    rotSpd: { y: 0.048, x: 0.020 },
+    hideOnMobile: true,
+  },
+  // [3] Tiny planet — lower right
+  {
+    x: 1.35, y: -1.85, z: 0.5,
+    r: 0.13,
+    col:       0x0c3060,
+    emissive:  0x071a40,
+    shininess: 45,
+    glow:  { col: 0x3a8fd0, scale: 1.90, op: 0.10 },
+    halo:  { col: 0x3a8fd0, scale: 3.00, op: 0.036 },
+    ring:  null,
+    float: { amp: 0.04, spd: 0.65, off: 4.5 },
+    rotSpd: { y: 0.042, x: 0.017 },
+    hideOnMobile: true,
+  },
+  // [4] Distant tiny planet — upper right, deep space
+  {
+    x: 3.3, y: 2.0, z: -2.6,
+    r: 0.085,
+    col:       0x0e62ad,
+    emissive:  0x0a2e58,
+    shininess: 60,
+    glow:  { col: 0x5cc6ff, scale: 2.10, op: 0.12 },
+    halo:  { col: 0x5cc6ff, scale: 3.40, op: 0.042 },
+    ring:  null,
+    float: { amp: 0.03, spd: 0.50, off: 2.1 },
+    rotSpd: { y: 0.030, x: 0.012 },
+    hideOnMobile: true,
+  },
 ];
 
-const nodeMeshes = [];
-const haloMeshes = [];
-// Store {material, baseOpacity} for smooth fade
-const networkMaterials = [];
+const SEGS = isMobile ? 24 : 40;
+const planetObjects = [];
 
-NODE_DEFS.forEach(([x, y, z, r, col, glowOp]) => {
-  // Core node sphere
-  const geo = new THREE.SphereGeometry(r, 14, 14);
-  const mat = new THREE.MeshBasicMaterial({ color: col, transparent: true, opacity: 0.9 });
-  const mesh = new THREE.Mesh(geo, mat);
-  mesh.position.set(x, y, z);
-  networkGroup.add(mesh);
-  nodeMeshes.push(mesh);
-  networkMaterials.push({ mat, base: 0.9 });
+PLANET_DEFS.forEach((def) => {
+  if (def.hideOnMobile && isMobile) return;
 
-  // Outer glow halo
-  const haloGeo = new THREE.SphereGeometry(r * 2.4, 14, 14);
-  const haloMat = new THREE.MeshBasicMaterial({
-    color:       col,
+  const group = new THREE.Group();
+  group.position.set(def.x, def.y, def.z);
+
+  // ── Planet sphere ──────────────────────────────────────────
+  const mat = new THREE.MeshPhongMaterial({
+    color:     def.col,
+    emissive:  def.emissive,
+    shininess: def.shininess,
     transparent: true,
-    opacity:     glowOp,
-    depthWrite:  false
+    opacity: 1.0,
   });
-  const halo = new THREE.Mesh(haloGeo, haloMat);
-  halo.position.set(x, y, z);
-  networkGroup.add(halo);
-  haloMeshes.push(halo);
-  networkMaterials.push({ mat: haloMat, base: glowOp });
+  group.add(new THREE.Mesh(new THREE.SphereGeometry(def.r, SEGS, SEGS), mat));
+
+  // ── Inner atmospheric glow (BackSide rim effect) ───────────
+  const glowMat = new THREE.MeshBasicMaterial({
+    color: def.glow.col,
+    transparent: true,
+    opacity: def.glow.op,
+    depthWrite: false,
+    side: THREE.BackSide,
+  });
+  group.add(new THREE.Mesh(new THREE.SphereGeometry(def.r * def.glow.scale, SEGS, SEGS), glowMat));
+
+  // ── Outer haze ─────────────────────────────────────────────
+  const haloMat = new THREE.MeshBasicMaterial({
+    color: def.halo.col,
+    transparent: true,
+    opacity: def.halo.op,
+    depthWrite: false,
+    side: THREE.BackSide,
+  });
+  group.add(new THREE.Mesh(new THREE.SphereGeometry(def.r * def.halo.scale, 16, 16), haloMat));
+
+  // ── Ring ───────────────────────────────────────────────────
+  let ringMat = null;
+  if (def.ring) {
+    ringMat = new THREE.MeshBasicMaterial({
+      color: def.ring.col,
+      transparent: true,
+      opacity: def.ring.op,
+      depthWrite: false,
+      side: THREE.DoubleSide,
+    });
+    const ringMesh = new THREE.Mesh(
+      new THREE.RingGeometry(def.ring.inner, def.ring.outer, 80),
+      ringMat
+    );
+    ringMesh.rotation.x = def.ring.rx;
+    ringMesh.rotation.z = def.ring.rz;
+    group.add(ringMesh);
+  }
+
+  scene.add(group);
+
+  planetObjects.push({
+    group,
+    mat, glowMat, haloMat, ringMat,
+    baseX:    def.x,
+    baseY:    def.y,
+    baseGlowOp: def.glow.op,
+    baseHaloOp: def.halo.op,
+    baseRingOp: def.ring ? def.ring.op : null,
+    float:    def.float,
+    rotSpd:   def.rotSpd,
+  });
 });
-
-// Connection lines between nodes
-const CONNECTIONS = [
-  [0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6], [0, 7],
-  [1, 5], [2, 6], [3, 4], [5, 7], [1, 7], [2, 4], [3, 6]
-];
-
-const lineVerts = [];
-CONNECTIONS.forEach(([a, b]) => {
-  const [ax, ay, az] = NODE_DEFS[a];
-  const [bx, by, bz] = NODE_DEFS[b];
-  lineVerts.push(ax, ay, az, bx, by, bz);
-});
-
-const lineGeo = new THREE.BufferGeometry();
-lineGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(lineVerts), 3));
-
-const lineMat = new THREE.LineBasicMaterial({
-  color:       0x0e62ad,
-  transparent: true,
-  opacity:     0.3,
-  depthWrite:  false
-});
-
-const networkLines = new THREE.LineSegments(lineGeo, lineMat);
-networkGroup.add(networkLines);
-
-// ─── Orbit Rings ─────────────────────────────────────────────
-const ringGeo  = new THREE.TorusGeometry(2.1, 0.004, 16, 120);
-const ringMat  = new THREE.MeshBasicMaterial({ color: 0x5cc6ff, transparent: true, opacity: 0.3 });
-const ring     = new THREE.Mesh(ringGeo, ringMat);
-ring.rotation.x = Math.PI / 2.8;
-scene.add(ring);
-
-const ring2    = ring.clone();
-ring2.rotation.x = Math.PI / 1.5;
-ring2.rotation.z = Math.PI / 4;
-const ring2Mat = new THREE.MeshBasicMaterial({ color: 0x0e62ad, transparent: true, opacity: 0.18 });
-ring2.material = ring2Mat;
-scene.add(ring2);
 
 // ─── Scroll State ────────────────────────────────────────────
 let scrollProgress = 0;
-
 window.addEventListener('scroll', () => {
-  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-  if (maxScroll > 0) scrollProgress = Math.min(window.scrollY / maxScroll, 1);
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  if (max > 0) scrollProgress = Math.min(window.scrollY / max, 1);
 }, { passive: true });
 
 // ─── Resize ──────────────────────────────────────────────────
@@ -192,42 +238,50 @@ window.addEventListener('resize', () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
-// ─── Clock & Render Loop ─────────────────────────────────────
+// ─── Render Loop ─────────────────────────────────────────────
 const clock = new THREE.Clock();
 
 function animate() {
   const t  = clock.getElapsedTime();
   const sp = scrollProgress;
 
-  // Particle rotation — original scroll animation
+  // Stars — identical scroll behaviour to original
   particles.rotation.y = t * 0.045 + sp * Math.PI * 1.5;
   particles.rotation.x = t * 0.022 + sp * Math.PI * 0.4;
+  starMat.opacity = Math.max(0.55, 0.92 - sp * 0.35);
 
-  // Node network rotation
-  networkGroup.rotation.y = t * 0.12;
-  networkGroup.rotation.x = t * 0.07;
-
-  // Pulse: central node halo breathes
-  const pulse = 1 + Math.sin(t * 1.2) * 0.18;
-  if (haloMeshes[0]) haloMeshes[0].scale.setScalar(pulse);
-
-  // Orbit rings
-  ring.rotation.z  = t * 0.07;
-  ring2.rotation.y = t * 0.05;
-
-  // Scroll: camera pulls back, particles maintain visibility
+  // Camera pull-back on scroll (same as original)
   camera.position.z = 6 + sp * 4;
   camera.position.y = sp * 1.2;
-  pMat.opacity      = Math.max(0.55, 0.92 - sp * 0.35);
 
-  // Network: smooth gradual fade as user scrolls down
-  const netFade = Math.max(0, 1 - sp * 2.8);
-  networkMaterials.forEach(({ mat, base }) => {
-    mat.opacity = base * netFade;
+  // Planets — float, rotate, spread outward, fade on scroll
+  const planetFade = Math.max(0, 1 - sp * 2.4);
+
+  planetObjects.forEach((po) => {
+    const { group, mat, glowMat, haloMat, ringMat, baseX, baseY, float: fl, rotSpd } = po;
+
+    // Gentle sinusoidal float
+    const floatY = Math.sin(t * fl.spd + fl.off) * fl.amp;
+
+    // Planets drift outward as user scrolls — gives sense of depth expanding
+    group.position.x = baseX * (1 + sp * 0.38);
+    group.position.y = baseY * (1 + sp * 0.28) + floatY;
+
+    // Slow continuous self-rotation
+    group.rotation.y = t * rotSpd.y;
+    group.rotation.x = t * rotSpd.x;
+
+    // Fade out with scroll (mirrors how network faded)
+    if (planetFade <= 0.001) {
+      group.visible = false;
+    } else {
+      group.visible   = true;
+      mat.opacity     = planetFade;
+      glowMat.opacity = po.baseGlowOp * planetFade;
+      haloMat.opacity = po.baseHaloOp * planetFade;
+      if (ringMat) ringMat.opacity = po.baseRingOp * planetFade;
+    }
   });
-  // Also fade lines (base opacity fluctuates, so apply fade on top)
-  lineMat.opacity = (0.22 + Math.sin(t * 0.9) * 0.10) * netFade;
-  networkGroup.visible = netFade > 0.001;
 
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
