@@ -1491,10 +1491,11 @@ body::before {
     left: auto;
     transform: none;
     max-width: 100%;
-    padding: 0 20px 0 28px;
+    /* bottom padding reserves space for hero-bottom (USP ~20px + gap 14px + 2 buttons ~110px + bottom offset 32px) */
+    padding: 0 20px 220px 28px;
   }
   .hero-heading {
-    font-size: clamp(2.6rem, 13vw, 4.2rem);
+    font-size: clamp(2.2rem, 10vw, 3.4rem);
     line-height: 1.45;
     letter-spacing: -0.01em;
     margin-bottom: 0;
