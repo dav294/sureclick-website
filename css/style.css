@@ -1391,6 +1391,15 @@ body::before {
   font-size: 0.78rem;
   color: rgba(255,255,255,0.28);
   margin-top: 6px;
+  font-style: normal; /* override <address> italic default */
+  line-height: 1.7;
+}
+.footer-location a {
+  color: rgba(255,255,255,0.28);
+  text-decoration: none;
+}
+.footer-location a:hover {
+  color: var(--accent);
 }
 
 /* =============================================================
