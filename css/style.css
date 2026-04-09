@@ -64,11 +64,10 @@ ul { list-style: none; }
 }
 
 .loader-symbol {
-  width: 64px;
-  height: 64px;
+  width: 72px;
+  height: 72px;
   object-fit: contain;
   animation: spin 2s linear infinite;
-  filter: brightness(0) invert(1);
 }
 
 @keyframes spin {
@@ -144,6 +143,8 @@ body::before {
   justify-content: space-between;
   gap: 48px;
 }
+
+.nav-logo-symbol { display: none; }
 
 .nav-logo img {
   height: 44px;
@@ -1474,9 +1475,11 @@ body::before {
 /* ── Mobile (≤ 600px) ─────────────────────────────────────── */
 @media (max-width: 600px) {
   /* Nav */
-  .nav-inner       { padding: 0 20px; gap: 12px; }
-  .nav-logo img    { height: 34px; }
-  .nav-contact-btn { padding: 9px 16px; font-size: 0.82rem; }
+  .nav-inner         { padding: 0 20px; gap: 12px; }
+  .nav-logo img      { height: 34px; }
+  .nav-logo-full     { display: none; }
+  .nav-logo-symbol   { display: block; height: 34px; width: auto; }
+  .nav-contact-btn   { padding: 9px 16px; font-size: 0.82rem; }
 
   /* Hero — switch to flex-column so text and CTAs stack naturally */
   .hero {
@@ -1495,7 +1498,7 @@ body::before {
     padding: 0 20px 220px 28px;
   }
   .hero-heading {
-    font-size: clamp(2.2rem, 10vw, 3.4rem);
+    font-size: clamp(2.4rem, 11vw, 3.6rem);
     line-height: 1.45;
     letter-spacing: -0.01em;
     margin-bottom: 0;
