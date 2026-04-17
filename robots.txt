@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://sureclick.ie/sitemap.xml
+Sitemap: https://www.sureclick.ie/sitemap.xml
