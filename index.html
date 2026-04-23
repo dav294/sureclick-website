@@ -29,7 +29,7 @@
   <meta property="og:url"         content="https://www.sureclick.ie/">
   <meta property="og:title"       content="Web Design Dublin | SEO &amp; PPC Agency Ireland | SureClick">
   <meta property="og:description" content="Digital agency in Swords, Dublin. Web design, SEO &amp; PPC for businesses across Ireland &amp; the UK. Conversion-focused websites free to host forever.">
-  <meta property="og:image"       content="https://www.sureclick.ie/logo/SureClick%20Logo.png">
+  <meta property="og:image"       content="https://www.sureclick.ie/logo/sureclick%20open%20graph%20(1).png">
   <meta property="og:image:alt"   content="SureClick — Web Design &amp; Digital Agency Dublin">
   <meta property="og:locale"      content="en_IE">
 
@@ -37,7 +37,7 @@
   <meta name="twitter:card"        content="summary_large_image">
   <meta name="twitter:title"       content="Web Design Dublin | SEO &amp; PPC Agency Ireland | SureClick">
   <meta name="twitter:description" content="Digital agency in Swords, Dublin. Web design, SEO &amp; PPC for Irish &amp; UK businesses. Free website hosting forever.">
-  <meta name="twitter:image"       content="https://www.sureclick.ie/logo/SureClick%20Logo.png">
+  <meta name="twitter:image"       content="https://www.sureclick.ie/logo/sureclick%20open%20graph%20(1).png">
 
   <!-- ═══ BROWSER / APP ════════════════════════════════════════ -->
   <meta name="theme-color" content="#0e62ad">
@@ -156,10 +156,14 @@
   }
   </script>
 
+  <!-- ═══ PRELOAD LCP IMAGE ══════════════════════════════════ -->
+  <link rel="preload" as="image" href="logo/SureClick%20Symbol%20Transparent%20%283%29.png" fetchpriority="high">
+
   <!-- ═══ FONTS ════════════════════════════════════════════════ -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
 
   <!-- ═══ THREE.JS IMPORTMAP ═══════════════════════════════════ -->
   <script type="importmap">
@@ -178,7 +182,7 @@
   <!-- Loader -->
   <div id="loader">
     <div class="loader-inner">
-      <img src="logo/SureClick%20Symbol%20Transparent%20%283%29.png" alt="SureClick" class="loader-symbol">
+      <img src="logo/SureClick%20Symbol%20Transparent%20%283%29.png" alt="SureClick" class="loader-symbol" width="72" height="72" fetchpriority="high" decoding="sync">
       <div class="loader-bar-track">
         <div class="loader-bar" id="loader-bar"></div>
       </div>
@@ -190,8 +194,8 @@
   <nav class="site-nav" id="site-nav">
     <div class="nav-inner">
       <a href="#" class="nav-logo">
-        <img src="logo/SureClick%20Logo.png" alt="SureClick — Web Design &amp; Digital Agency Dublin" class="nav-logo-full">
-        <img src="logo/SureClick%20Symbol%20Transparent%20%283%29.png" alt="SureClick" class="nav-logo-symbol">
+        <img src="logo/SureClick%20Logo.png" alt="SureClick — Web Design &amp; Digital Agency Dublin" class="nav-logo-full" width="103" height="44" decoding="async">
+        <img src="logo/SureClick%20Symbol%20Transparent%20%283%29.png" alt="SureClick" class="nav-logo-symbol" width="34" height="34" decoding="async">
       </a>
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
@@ -454,15 +458,15 @@
       <div class="clients-ticker">
         <div class="clients-ticker-track">
           <!-- First set -->
-          <div class="client-logo"><img src="clients/walshy%20transparent.png" alt="Walshy"></div>
-          <div class="client-logo"><img src="clients/WOOD-FLOOR-STORE-LOGO-ff4137e591d1.png" alt="Wood Floor Store"></div>
-          <div class="client-logo"><img src="clients/kwa-logo-transparent.png" alt="KWA"></div>
-          <div class="client-logo"><img src="clients/SleepoverClubLogo.png" alt="Sleepover Club"></div>
+          <div class="client-logo"><img src="clients/walshy%20transparent.png" alt="Walshy" width="160" height="48" loading="lazy" decoding="async"></div>
+          <div class="client-logo"><img src="clients/WOOD-FLOOR-STORE-LOGO-ff4137e591d1.png" alt="Wood Floor Store" width="160" height="48" loading="lazy" decoding="async"></div>
+          <div class="client-logo"><img src="clients/kwa-logo-transparent.png" alt="KWA" width="68" height="48" loading="lazy" decoding="async"></div>
+          <div class="client-logo"><img src="clients/SleepoverClubLogo.png" alt="Sleepover Club" width="48" height="48" loading="lazy" decoding="async"></div>
           <!-- Duplicate set for seamless loop -->
-          <div class="client-logo"><img src="clients/walshy%20transparent.png" alt="Walshy"></div>
-          <div class="client-logo"><img src="clients/WOOD-FLOOR-STORE-LOGO-ff4137e591d1.png" alt="Wood Floor Store"></div>
-          <div class="client-logo"><img src="clients/kwa-logo-transparent.png" alt="KWA"></div>
-          <div class="client-logo"><img src="clients/SleepoverClubLogo.png" alt="Sleepover Club"></div>
+          <div class="client-logo"><img src="clients/walshy%20transparent.png" alt="Walshy" width="160" height="48" loading="lazy" decoding="async"></div>
+          <div class="client-logo"><img src="clients/WOOD-FLOOR-STORE-LOGO-ff4137e591d1.png" alt="Wood Floor Store" width="160" height="48" loading="lazy" decoding="async"></div>
+          <div class="client-logo"><img src="clients/kwa-logo-transparent.png" alt="KWA" width="68" height="48" loading="lazy" decoding="async"></div>
+          <div class="client-logo"><img src="clients/SleepoverClubLogo.png" alt="Sleepover Club" width="48" height="48" loading="lazy" decoding="async"></div>
         </div>
       </div>
     </section>
@@ -485,7 +489,7 @@
     <div class="footer-inner">
       <div class="footer-top">
         <div class="footer-brand">
-          <img src="logo/SureClick%20Logo.png" alt="SureClick — Web Design &amp; Digital Agency Dublin" class="footer-logo">
+          <img src="logo/SureClick%20Logo.png" alt="SureClick — Web Design &amp; Digital Agency Dublin" class="footer-logo" width="66" height="28" loading="lazy" decoding="async">
           <p class="footer-tagline">Clicks That Convert.</p>
           <address class="footer-location">
             Swords, Dublin · Ireland &amp; UK<br>
@@ -525,14 +529,14 @@
       <button class="contact-popup-close" aria-label="Close">✕</button>
       <p class="contact-popup-heading">Get in touch</p>
       <a href="tel:+353872172711" class="contact-popup-btn">
-        <img src="icons/icon-phone.png" alt="" class="contact-popup-icon">
+        <img src="icons/icon-phone.png" alt="" class="contact-popup-icon" width="20" height="20" loading="lazy" decoding="async">
         <span class="contact-popup-detail">
           <span class="contact-popup-type">Call</span>
           <span class="contact-popup-value">+353 87 217 2711</span>
         </span>
       </a>
       <a href="mailto:info@sureclick.ie" class="contact-popup-btn">
-        <img src="icons/icon-email.png" alt="" class="contact-popup-icon">
+        <img src="icons/icon-email.png" alt="" class="contact-popup-icon" width="20" height="20" loading="lazy" decoding="async">
         <span class="contact-popup-detail">
           <span class="contact-popup-type">Email</span>
           <span class="contact-popup-value">info@sureclick.ie</span>
@@ -542,15 +546,15 @@
   </div>
 
   <!-- CDN Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
 
   <!-- Three.js scene (ES module) -->
   <script type="module" src="js/scene.js"></script>
 
   <!-- App logic -->
-  <script src="js/app.js"></script>
+  <script defer src="js/app.js"></script>
 
 </body>
 </html>
